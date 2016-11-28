@@ -7,19 +7,17 @@
 //
 
 import UIKit
+import NumberPad
 
 class ViewController: UIViewController {
 
+    @IBOutlet private weak var textField: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        textField.inputView = NumberPad(buttons: [])
+                                .configure(with: textField)
+                                .withInputController()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
