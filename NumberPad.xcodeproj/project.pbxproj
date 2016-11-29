@@ -60,8 +60,8 @@
 		BA5287851DEB1A3F00820230 /* NumberPad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NumberPad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5287881DEB1A3F00820230 /* NumberPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberPad.h; sourceTree = "<group>"; };
 		BA5287901DEB1B9A00820230 /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
-		BA5287941DEB202000820230 /* license.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = license.md; path = ../license.md; sourceTree = "<group>"; };
-		BA5287951DEB202000820230 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		BA5287941DEB202000820230 /* license.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = license.md; sourceTree = "<group>"; };
+		BA5287951DEB202000820230 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BA52879D1DEB226300820230 /* NumberPadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NumberPadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA52879F1DEB226300820230 /* NumberPadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPadTests.swift; sourceTree = "<group>"; };
 		BA5287A11DEB226300820230 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
