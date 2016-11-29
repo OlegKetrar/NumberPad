@@ -41,6 +41,7 @@ Thumbs.db
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
+*.playground/
 
 # Swift Package Manager
 #
