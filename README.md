@@ -4,7 +4,7 @@
 
 ## Features
 - [x] optional buttons (plus, dot, hide)
-- [ ] long press support for delete key  
+- [x] long press support for delete key  
 - [ ] system slyles (light, dark) + vibrancy
 - [ ] custom styles
 - [ ] customize action key

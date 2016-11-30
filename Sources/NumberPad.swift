@@ -67,7 +67,7 @@ public class NumberPad: UIInputView, Reusable {
 		}
 	}
 	
-	@IBOutlet private weak var backspaceButton: UIButton! {
+	@IBOutlet private weak var backspaceButton: LongPressButton! {
 		didSet {
             let deleteImage = UIImage(named: "deleteKey",
                                       in: Bundle(for: type(of: self)),
@@ -152,8 +152,13 @@ public class NumberPad: UIInputView, Reusable {
 			hideButton.removeFromSuperview()
 			backspaceButton.pinToSuperview(attribute: .top)
 		}
+
+        // observe continius holds
+        backspaceButton.addAction(forContiniusHoldWith: 0.1) { [weak self] in
+            self?.didPress(button: .backspace)
+        }
 	}
-	
+
 	// MARK: - Actions
 	
 	@IBAction private func digitButtonDidPressed(_ button: UIButton) {
@@ -170,11 +175,7 @@ public class NumberPad: UIInputView, Reusable {
 	@IBAction private func dotButtonDidPressed() {
 		didPress(button: .dot)
 	}
-	
-	@IBAction private func backspaceButtonDidPressed() {
-		didPress(button: .backspace)
-	}
-	
+
 	@IBAction private func actionButtonDidPressed() {
 		didPress(button: .action)
 	}
