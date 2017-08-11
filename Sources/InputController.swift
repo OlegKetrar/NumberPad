@@ -37,9 +37,6 @@ public extension NumberPad {
 				if shouldReturn {
 					responder.resignFirstResponder()
 				}
-				
-			}.onDismiss {
-				(UIResponder.first)?.resignFirstResponder()
 			}.onBackspace {
 				(UIResponder.first as? UIKeyInput)?.deleteBackward()
 		}

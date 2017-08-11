@@ -8,153 +8,83 @@
 
 import UIKit
 
-fileprivate enum ButtonType {
-    case digit(Int)
-    case plus
-    case dot
-    case backspace
-    case hide
-    case action
-}
-
+///
 public final class NumberPad: UIInputView, Reusable {
-	
-	public enum OptionalButton {
-		case dot
-		case plus
-		case hide
-	}
 
+	/// Uses default style.
+	private struct DefaultStyle: KeyboardStyle {}
+	
 	// MARK: 
 	
 	private let visualEffectView: UIVisualEffectView = {
 		return UIVisualEffectView(frame: CGRect.zero)
 	}()
-	
+
 	var returnKeyTitle: String = "Return" {
 		didSet { actionButton.setTitle(returnKeyTitle, for: .normal) }
 	}
 	
 	private var onTextInputClosure: (String) -> Void = { _ in }
 	private var onBackspaceClosure: () -> Void       = {}
-	private var onHideClosure:      () -> Void       = {}
 	private var onActionClosure:    () -> Void       = {}
 	
-	private let additionalButtons: [OptionalButton]
+	private let optionalKey: Key.Optional?
 	
 	// MARK: Outlets
 	
 	@IBOutlet private weak var contentView: UIView!
-	
-	@IBOutlet private var digitButtons: [UIButton]!
-
 	@IBOutlet private weak var zeroButton: UIButton!
-	@IBOutlet private weak var plusButton: UIButton!
-	@IBOutlet private weak var dotButton: UIButton!
+	@IBOutlet private weak var optionalButton: UIButton!
 	@IBOutlet private weak var actionButton: UIButton!
-	
-	@IBOutlet private weak var hideButton: UIButton! {
-		didSet {
-            let hideImage = UIImage(named: "hideKey",
-                                    in: Bundle(for: type(of: self)),
-                                    compatibleWith: nil)
 
-			hideButton.setTitle("", for: .normal)
-			hideButton.imageView?.tintColor = UIColor.darkText
-			hideButton.setImage(hideImage, for: .normal)
-		}
-	}
-	
-	@IBOutlet private weak var backspaceButton: LongPressButton! {
-		didSet {
-            let deleteImage = UIImage(named: "deleteKey",
-                                      in: Bundle(for: type(of: self)),
-                                      compatibleWith: nil)
+	@IBOutlet private var digitButtons: [UIButton]!
+	@IBOutlet private weak var backspaceButton: LongPressButton!
 
-			backspaceButton.setTitle("", for: .normal)
-			backspaceButton.imageView?.tintColor = UIColor.darkText
-			backspaceButton.setImage(deleteImage, for: .normal)
-		}
-	}
-	
 	// MARK: Init
 	
 	override public init(frame: CGRect, inputViewStyle: UIInputViewStyle) {
-		additionalButtons = []
+		optionalKey = nil
 		super.init(frame: frame, inputViewStyle: inputViewStyle)
 		replaceWithNib()
 		defaultConfiguring()
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {
-		additionalButtons = []
+		optionalKey = nil
 		super.init(coder: aDecoder)
 		replaceWithNib()
 		defaultConfiguring()
 	}
 	
-	public init(buttons: [OptionalButton]) {
-		additionalButtons = buttons
-		super.init(frame: CGRect.zero, inputViewStyle: .keyboard)
+	public init(optionalKey: Key.Optional) {
+		self.optionalKey = optionalKey
+		super.init(frame: .zero, inputViewStyle: .keyboard)
 		replaceWithNib()
 		defaultConfiguring()
-		self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		autoresizingMask = [.flexibleWidth, .flexibleHeight]
 	}
 	
 	private func defaultConfiguring() {
-		
-		// customizer buttons
-		let normalFillColor    = UIColor.white
-		let highlightFillColor = UIColor(colorLiteralRed: 0.82, green: 0.837, blue: 0.863, alpha: 1)
-		let actionFillColor    = UIColor(colorLiteralRed: 0, green: 0.479, blue: 1, alpha: 1)
-		
-		let normalControlColor    = UIColor.darkText
-		let highlightControlColor = UIColor.darkText
-		
-		(digitButtons + [hideButton, actionButton, backspaceButton, plusButton, dotButton]).forEach { (button) in
-			button.setBackgroundImage(UIImage(color: normalFillColor), for: .normal)
-			button.setBackgroundImage(UIImage(color: highlightFillColor), for: .highlighted)
-			button.setBackgroundImage(UIImage(color: highlightFillColor), for: .selected)
-			
-			button.setTitleColor(normalControlColor, for: .normal)
-			button.setTitleColor(highlightControlColor, for: .highlighted)
-			button.setTitleColor(highlightControlColor, for: .selected)
-			
-			button.layer.borderColor = UIColor.groupTableViewBackground.cgColor
-			button.layer.borderWidth = 1 / UIScreen.main.scale
-		}
-		
-		// action button
-		actionButton.setBackgroundImage(UIImage(color: actionFillColor), for: .normal)
-		actionButton.setBackgroundImage(UIImage(color: normalFillColor), for: .highlighted)
-		actionButton.setBackgroundImage(UIImage(color: normalFillColor), for: .selected)
-		
-		actionButton.setTitleColor(UIColor.white, for: .normal)
-		actionButton.setTitleColor(normalControlColor, for: .highlighted)
-		actionButton.setTitleColor(normalControlColor, for: .selected)
-		
-		actionButton.layer.borderWidth = 0
-		
-		// configure additional buttons
-		if !additionalButtons.contains(.plus) {
-			plusButton.removeFromSuperview()
-			zeroButton.pinToSuperview(attribute: .left)
-		}
 
-		if !additionalButtons.contains(.dot) {
-			dotButton.removeFromSuperview()
-			zeroButton.pinToSuperview(attribute: .right)
-		}
-		
-		if !additionalButtons.contains(.hide) {
-			hideButton.removeFromSuperview()
-			backspaceButton.pinToSuperview(attribute: .top)
+		// adjust actionButton title font size
+		actionButton.titleLabel?.numberOfLines             = 1
+		actionButton.titleLabel?.adjustsFontSizeToFitWidth = true
+		actionButton.titleLabel?.minimumScaleFactor        = 0.5
+		actionButton.titleLabel?.lineBreakMode             = .byClipping
+
+		// configure additional buttons
+		if optionalKey == nil {
+			optionalButton.removeFromSuperview()
+			backspaceButton.pinToSuperview(attribute: .right)
 		}
 
         // observe continius holds
         backspaceButton.addAction(forContiniusHoldWith: 0.1) { [weak self] in
-            self?.didPress(button: .backspace)
+            self?.didPress(key: .backspace)
         }
+
+		// apply default style
+		with(style: DefaultStyle())
 	}
 
 	// MARK: Actions
@@ -163,43 +93,34 @@ public final class NumberPad: UIInputView, Reusable {
 		
 		// validate button tag (indexes is same as elements)
 		guard let buttonDigit = (0..<10).index(of: button.tag - 1) else { return }
-		didPress(button: .digit(buttonDigit))
+		didPress(key: .digit(buttonDigit))
 	}
-	
-	@IBAction private func plusButtonDidPressed() {
-		didPress(button: .plus)
-	}
-	
-	@IBAction private func dotButtonDidPressed() {
-		didPress(button: .dot)
+
+	@IBAction private func optionalButtonDidPressed() {
+		guard let key = optionalKey else { return }
+		didPress(key: .optional(key))
 	}
 
 	@IBAction private func actionButtonDidPressed() {
-		didPress(button: .action)
+		didPress(key: .action)
 	}
-	
-	@IBAction private func hideButtonDidPressed() {
-		didPress(button: .hide)
-	}
-	
-	private func didPress(button: ButtonType) {
+
+	private func didPress(key: Key) {
 		
 		// inform delegate
-		switch button {
+		switch key {
 		case .digit(let digit): onTextInputClosure("\(digit)")
-		case .dot:			    onTextInputClosure(".")
-		case .plus:				onTextInputClosure("+")
+		case .optional(.plus):  onTextInputClosure("+")
+		case .optional(.dot):   onTextInputClosure(".")
 		case .action:			onActionClosure()
 		case .backspace:		onBackspaceClosure()
-		case .hide:				onHideClosure()
 		}
 		
 		// play click
-		switch button {
+		switch key {
 		case .digit(_),
 		     .backspace,
-		     .dot,
-		     .plus: UIDevice.current.playInputClick()
+		     .optional: UIDevice.current.playInputClick()
 			
 		default:
 			break
@@ -207,7 +128,39 @@ public final class NumberPad: UIInputView, Reusable {
 	}
 	
 	// MARK: Configure
-	
+
+	/// Apply custom visual style to keyboard.
+	@discardableResult
+	public func with(style: KeyboardStyle) -> Self {
+
+		var buttonsTuple: [(UIButton, Key)] = digitButtons.enumerated().map { ($1, .digit($0)) }
+		buttonsTuple.append((actionButton, .action))
+		buttonsTuple.append((backspaceButton, .backspace))
+
+		if let optionalKey = optionalKey {
+			buttonsTuple.append((optionalButton, .optional(optionalKey)))
+		}
+
+		buttonsTuple.forEach { (button, key) in
+			button.setAttributedTitle(style.attributedTitleFor(key: key, state: .normal), for: .normal)
+			button.setAttributedTitle(style.attributedTitleFor(key: key, state: .selected), for: .selected)
+			button.setAttributedTitle(style.attributedTitleFor(key: key, state: .highlighted), for: .highlighted)
+
+			button.setImage(style.imageFor(key: key, state: .normal), for: .normal)
+			button.setImage(style.imageFor(key: key, state: .selected), for: .selected)
+			button.setImage(style.imageFor(key: key, state: .highlighted), for: .highlighted)
+
+			button.setBackgroundImage(style.backgroundImageFor(key: key, state: .normal), for: .normal)
+			button.setBackgroundImage(style.backgroundImageFor(key: key, state: .selected), for: .selected)
+			button.setBackgroundImage(style.backgroundImageFor(key: key, state: .highlighted), for: .highlighted)
+
+			button.layer.borderWidth = 0.5 * style.separatorThickness
+			button.layer.borderColor = style.separatorColor.cgColor
+		}
+
+		return self
+	}
+
 	@discardableResult
 	public func onTextInput(_ closure: @escaping (String) -> Void) -> Self {
 		onTextInputClosure = closure
@@ -219,13 +172,7 @@ public final class NumberPad: UIInputView, Reusable {
 		onBackspaceClosure = closure
 		return self
 	}
-	
-	@discardableResult
-	public func onDismiss(_ closure: @escaping () -> Void) -> Self {
-		onHideClosure = closure
-		return self
-	}
-	
+
     @discardableResult
 	public func onReturn(_ closure: @escaping () -> Void) -> Self {
 		onActionClosure = closure
