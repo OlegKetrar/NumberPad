@@ -24,9 +24,7 @@ public final class NumberPad: UIInputView, Reusable {
 		case plus
 		case hide
 	}
-	
-	public typealias AdditionalButtons = [OptionalButton]
-	
+
 	// MARK: 
 	
 	private let visualEffectView: UIVisualEffectView = {
@@ -42,7 +40,7 @@ public final class NumberPad: UIInputView, Reusable {
 	private var onHideClosure:      () -> Void       = {}
 	private var onActionClosure:    () -> Void       = {}
 	
-	private let additionalButtons: AdditionalButtons
+	private let additionalButtons: [OptionalButton]
 	
 	// MARK: Outlets
 	
@@ -95,7 +93,7 @@ public final class NumberPad: UIInputView, Reusable {
 		defaultConfiguring()
 	}
 	
-	public init(buttons: AdditionalButtons) {
+	public init(buttons: [OptionalButton]) {
 		additionalButtons = buttons
 		super.init(frame: CGRect.zero, inputViewStyle: .keyboard)
 		replaceWithNib()
