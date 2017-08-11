@@ -9,7 +9,7 @@
 import UIKit
 import NumberPad
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     @IBOutlet private weak var textField: UITextField!
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK: - Handle text input and adopt it to UITextField & UITextView
+// MARK: Handle text input and adopt it to UITextField & UITextView
 // TODO: add handling of delegates shouldChangeCharactersInRange
 
 public extension NumberPad {
@@ -92,7 +92,7 @@ fileprivate extension UITextField {
 	}
 }
 
-// MARK: - UIReturnKeyType
+// MARK: UIReturnKeyType
 
 fileprivate extension UIReturnKeyType {
 	
@@ -115,12 +115,3 @@ fileprivate extension String {
         return bundle?.localizedString(forKey: self, value: "", table: nil) ?? self
     }
 }
-
-
-
-
-
-
-
-
-

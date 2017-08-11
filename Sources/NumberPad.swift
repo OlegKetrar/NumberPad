@@ -17,7 +17,7 @@ fileprivate enum ButtonType {
     case action
 }
 
-public class NumberPad: UIInputView, Reusable {
+public final class NumberPad: UIInputView, Reusable {
 	
 	public enum OptionalButton {
 		case dot
@@ -44,7 +44,7 @@ public class NumberPad: UIInputView, Reusable {
 	
 	private let additionalButtons: AdditionalButtons
 	
-	// MARK: - Outlets
+	// MARK: Outlets
 	
 	@IBOutlet private weak var contentView: UIView!
 	
@@ -79,7 +79,7 @@ public class NumberPad: UIInputView, Reusable {
 		}
 	}
 	
-	// MARK: - Init
+	// MARK: Init
 	
 	override public init(frame: CGRect, inputViewStyle: UIInputViewStyle) {
 		additionalButtons = []
@@ -159,7 +159,7 @@ public class NumberPad: UIInputView, Reusable {
         }
 	}
 
-	// MARK: - Actions
+	// MARK: Actions
 	
 	@IBAction private func digitButtonDidPressed(_ button: UIButton) {
 		
@@ -208,7 +208,7 @@ public class NumberPad: UIInputView, Reusable {
 		}
 	}
 	
-	// MARK: -
+	// MARK: Configure
 	
 	@discardableResult
 	public func onTextInput(_ closure: @escaping (String) -> Void) -> Self {
@@ -238,19 +238,3 @@ public class NumberPad: UIInputView, Reusable {
 extension NumberPad: UIInputViewAudioFeedback {
 	public var enableInputClicksWhenVisible: Bool { return true }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LongPressButton: UIButton {
+final class LongPressButton: UIButton {
 
     private var timer: Timer?
     private var fireClosure: () -> Void = {}
@@ -24,8 +24,6 @@ class LongPressButton: UIButton {
         removeTarget(self, action: #selector(actionRelease), for: .touchUpOutside)
     }
 
-    // MARK: - 
-
     private func invalidateTimer() {
         timer?.invalidate()
         startTimestamp = nil
@@ -38,7 +36,7 @@ class LongPressButton: UIButton {
         return timestamp >= startTimestamp + holdDelay
     }
 
-    // MARK: - Subscribe
+    // MARK: Subscribe
 
     func addAction(forContiniusHoldWith interval: TimeInterval, action: @escaping () -> Void) {
 
@@ -55,7 +53,7 @@ class LongPressButton: UIButton {
         addTarget(self, action: #selector(actionRelease), for: .touchUpOutside)
     }
 
-    // MARK: - Actions
+    // MARK: Actions
 
     /// fire on touchDown & set timer to catch hold events
     @objc private func actionHold() {
@@ -77,9 +75,3 @@ class LongPressButton: UIButton {
         fireClosure()
     }
 }
-
-
-
-
-
-

@@ -63,3 +63,7 @@ To integrate NumberPad into your Xcode project using Carthage, specify it in you
 github "OlegKetrar/NumberPad"
 ```
 Run `carthage update` to build the framework and drag the built `NumberPad.framework` into your Xcode project.
+
+## License
+
+NumberPad is released under the MIT license. See LICENSE for details.

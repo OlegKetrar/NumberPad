@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK: - Reusable
+// MARK: Reusable
 
 protocol Reusable: class {
     static var reuseIdentifier: String { get }
@@ -36,7 +36,7 @@ extension Reusable where Self: UIView {
     }
 }
 
-// MARK: - UIView + AutoLayout
+// MARK: UIView + AutoLayout
 
 extension UIView {
 
@@ -60,7 +60,7 @@ extension UIView {
     }
 }
 
-// MARK: - UIImage
+// MARK: UIImage
 
 extension UIImage {
 
@@ -79,7 +79,3 @@ extension UIImage {
         }
     }
 }
-
-
-
-
