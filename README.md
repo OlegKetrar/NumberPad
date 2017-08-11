@@ -3,23 +3,34 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ## Features
-- [x] optional buttons (plus, dot, hide)
-- [x] long press support for delete key  
-- [ ] system slyles (light, dark) + vibrancy
-- [ ] custom styles
-- [ ] customize action key
-- [ ] improve InputControlller (ask delegate aboult shouldChangeCharactersInRange)
-- [ ] appearance from UIInputTraits.keyboardAppearance
+- [x] Return button
+- [x] Optional buttons (plus, dot)
+- [x] Long press support for delete key
+- [x] Custom styles
+- [ ] System slyles (light, dark) + vibrancy
+- [ ] iOS 11 PhonePad keyboard style
+- [ ] Customize action key
+- [ ] Improve InputControlller (ask delegate aboult shouldChangeCharactersInRange)
+- [ ] Appearance from UIInputTraits.keyboardAppearance
 
 ## Usage
 
 ### Standart InputController
 
 ```swift
+
+// define yout own custom style
+struct MyCustomStyle: KeyboardStyle {
+	...
+}
+
 let textField = UITextField(frame: CGRect.zero)
+let myStyle   = CustomStyle()
+
 ...
 textField.inputView = NumberPad(buttons: [.plus, .hide])
                         .configure(with: textField)
+                        .with(style: myStyle)
                         .withInputController()
 ```
 
@@ -32,8 +43,6 @@ let pad = NumberPad(buttons: [.hide])
                 // proccess symbol input
             }.onReturn {
                 // proccess action button
-            }.onDismiss {
-                // proccess hide button
             }.onBackspace {
                 // proccess backspace button
             }
@@ -66,4 +75,4 @@ Run `carthage update` to build the framework and drag the built `NumberPad.frame
 
 ## License
 
-NumberPad is released under the MIT license. See LICENSE for details.
+NumberPad is released under the MIT license. [See LICENSE](LICENSE.md) for details.
