@@ -64,10 +64,17 @@ public extension KeyboardStyle {
 	public func backgroundImageFor(key: Key, state: Key.State) -> UIImage? {
 		return UIImage(color:  {
 			switch (key, state) {
-			case (.digit, .normal):  return .white
-			case (.digit, _):        return .init(red: 0.82, green: 0.837, blue: 0.863, alpha: 1)
-			case (.action, .normal): return .init(red: 0, green: 0.479, blue: 1, alpha: 1)
-			case (.action, _):		 return .white
+
+			case (.action, .normal):
+				return .init(red: 0, green: 0.479, blue: 1, alpha: 1)
+
+			case (.digit, .normal),
+			     (.action, _),
+				 (.backspace, .selected),
+				 (.backspace, .highlighted),
+				 (.optional, .selected),
+				 (.optional, .highlighted):
+				return .white
 
 			default:
 				return .init(red: 0.82, green: 0.837, blue: 0.863, alpha: 1)
@@ -92,7 +99,7 @@ public extension KeyboardStyle {
 		])
 	}
 
-	private var defaultDeleteKeyImage: UIImage? {
+	var defaultDeleteKeyImage: UIImage? {
 		return UIImage(named: "deleteKey", in: .init(for: NumberPad.self), compatibleWith: nil)
 	}
 }

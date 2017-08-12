@@ -9,7 +9,6 @@
 - [x] Custom styles
 - [ ] System slyles (light, dark) + vibrancy
 - [ ] iOS 11 PhonePad keyboard style
-- [ ] Customize action key
 - [ ] Improve InputControlller (ask delegate aboult shouldChangeCharactersInRange)
 - [ ] Appearance from UIInputTraits.keyboardAppearance
 
@@ -19,25 +18,20 @@
 
 ```swift
 
-// define yout own custom style
-struct MyCustomStyle: KeyboardStyle {
-	...
-}
-
-let textField = UITextField(frame: CGRect.zero)
-let myStyle   = CustomStyle()
+let textField = UITextField(frame: .zero)
 
 ...
-textField.inputView = NumberPad(buttons: [.plus, .hide])
-                        .configure(with: textField)
-                        .with(style: myStyle)
-                        .withInputController()
+textField.inputView = NumberPad(optionalKey: .dot)
+                        .with(styleFrom: textField)
+                        .withStandartInputController()
+
 ```
 
 ### Custom InputController
 
 ```swift
-let pad = NumberPad(buttons: [.hide])
+
+let pad = NumberPad(optionalKey: .plus)
             .configure(with: textField)
             .onTextInput { (symbol) in
                 // proccess symbol input
@@ -46,8 +40,21 @@ let pad = NumberPad(buttons: [.hide])
             }.onBackspace {
                 // proccess backspace button
             }
-
 ```
+
+### Use custom style
+
+```swift
+
+// define your own custom style
+struct MyCustomStyle: KeyboardStyle {
+	...
+}
+
+let pad = NumberPad(optionalKey: .dot)
+			.with(style: MyCustomStyle())
+```
+
 ## Requirements
 
 - Swift 3.0+

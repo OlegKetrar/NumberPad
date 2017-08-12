@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5579F49F1F3E186500A23437 /* KeyboardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579F49E1F3E186500A23437 /* KeyboardStyle.swift */; };
 		5579F4A11F3E22BC00A23437 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579F4A01F3E22BC00A23437 /* Key.swift */; };
+		5579F4A31F3F748400A23437 /* SystemStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579F4A21F3F748400A23437 /* SystemStyle.swift */; };
 		BA52878A1DEB1A3F00820230 /* NumberPad.h in Headers */ = {isa = PBXBuildFile; fileRef = BA5287881DEB1A3F00820230 /* NumberPad.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA5287A01DEB226300820230 /* NumberPadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA52879F1DEB226300820230 /* NumberPadTests.swift */; };
 		BA5287A21DEB226300820230 /* NumberPad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA5287851DEB1A3F00820230 /* NumberPad.framework */; };
@@ -61,6 +62,7 @@
 /* Begin PBXFileReference section */
 		5579F49E1F3E186500A23437 /* KeyboardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardStyle.swift; sourceTree = "<group>"; };
 		5579F4A01F3E22BC00A23437 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		5579F4A21F3F748400A23437 /* SystemStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemStyle.swift; sourceTree = "<group>"; };
 		BA5287851DEB1A3F00820230 /* NumberPad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NumberPad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5287881DEB1A3F00820230 /* NumberPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberPad.h; sourceTree = "<group>"; };
 		BA5287901DEB1B9A00820230 /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				BA83D4721DEE3A3F00A3D03B /* LongPressButton.swift */,
 				BA5287CA1DEB255300820230 /* Keyboard */,
 				BA5287BE1DEB254B00820230 /* InputController.swift */,
+				5579F4A21F3F748400A23437 /* SystemStyle.swift */,
 				BA88F7ED1DECD96900DC6E88 /* Assets.xcassets */,
 				BA5287901DEB1B9A00820230 /* Info-iOS.plist */,
 				BA5287881DEB1A3F00820230 /* NumberPad.h */,
@@ -340,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA88F7EC1DECD62D00DC6E88 /* ConvenienceExtensions.swift in Sources */,
+				5579F4A31F3F748400A23437 /* SystemStyle.swift in Sources */,
 				5579F49F1F3E186500A23437 /* KeyboardStyle.swift in Sources */,
 				BA83D4731DEE3A3F00A3D03B /* LongPressButton.swift in Sources */,
 				BA5287C41DEB254B00820230 /* NumberPad.swift in Sources */,

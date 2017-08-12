@@ -19,10 +19,6 @@ public final class NumberPad: UIInputView, Reusable {
 	private let visualEffectView: UIVisualEffectView = {
 		return UIVisualEffectView(frame: CGRect.zero)
 	}()
-
-	var returnKeyTitle: String = "Return" {
-		didSet { actionButton.setTitle(returnKeyTitle, for: .normal) }
-	}
 	
 	private var onTextInputClosure: (String) -> Void = { _ in }
 	private var onBackspaceClosure: () -> Void       = {}

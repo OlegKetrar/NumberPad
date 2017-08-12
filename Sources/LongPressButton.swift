@@ -29,7 +29,7 @@ final class LongPressButton: UIButton {
         startTimestamp = nil
     }
 
-    /// start hold event recognition after delay
+    /// Start hold event recognition after delay.
     private func recognizeHoldEvent() -> Bool {
         guard let startTimestamp = startTimestamp else { return false }
         let timestamp = Date().timeIntervalSinceReferenceDate
@@ -55,7 +55,7 @@ final class LongPressButton: UIButton {
 
     // MARK: Actions
 
-    /// fire on touchDown & set timer to catch hold events
+    /// Fire on touchDown & set timer to catch hold events.
     @objc private func actionHold() {
         fireClosure()
         startTimestamp = Date().timeIntervalSinceReferenceDate

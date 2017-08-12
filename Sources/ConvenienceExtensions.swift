@@ -8,8 +8,6 @@
 
 import UIKit
 
-// MARK: Reusable
-
 protocol Reusable: class {
     static var reuseIdentifier: String { get }
     static var nibName: String { get }
@@ -20,8 +18,6 @@ extension Reusable {
     static var nibName: String         { return String(describing: Self.self) }
     static var nib: UINib			   { return UINib(nibName: nibName, bundle: Bundle(for: self)) }
 }
-
-// MARK: Reusable UIView (loaded from nib)
 
 extension Reusable where Self: UIView {
     func replaceWithNib() {
@@ -35,8 +31,6 @@ extension Reusable where Self: UIView {
         }
     }
 }
-
-// MARK: UIView + AutoLayout
 
 extension UIView {
 
@@ -60,22 +54,26 @@ extension UIView {
     }
 }
 
-// MARK: UIImage
-
 extension UIImage {
 
-    convenience init(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
-        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
-        color.setFill()
-        UIRectFill(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+	/// Creates image with specified color.
+	/// - parameter color: specified color with alpha.
+	/// - parameter size: image size, default 1x1.
+    convenience init?(color: UIColor, size: CGSize = .init(width: 1, height: 1)) {
 
-        if let patternImage = image?.cgImage {
-            self.init(cgImage: patternImage)
-        } else {
-            self.init()
-        }
+		let image: UIImage? = {
+			defer { UIGraphicsEndImageContext() }
+
+			UIGraphicsBeginImageContextWithOptions(size, false, 0)
+			color.setFill()
+			UIRectFill(.init(origin: .zero, size: size))
+
+			return UIGraphicsGetImageFromCurrentImageContext()
+		}()
+
+		guard let createdImage = image,
+			let patternImage = createdImage.cgImage else { return nil }
+
+		self.init(cgImage: patternImage, scale: createdImage.scale, orientation: createdImage.imageOrientation)
     }
 }
