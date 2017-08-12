@@ -19,7 +19,7 @@ final class ViewController: UIViewController {
 
 		textField.inputView = NumberPad(optionalKey: .dot)
 			.with(styleFrom: textField)
-			.withStandartInputController()
+			.withStandardInputController()
 
 		textField.becomeFirstResponder()
     }

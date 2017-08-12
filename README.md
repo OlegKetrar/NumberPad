@@ -14,7 +14,7 @@
 
 ## Usage
 
-### Standart InputController
+### Standard InputController
 
 ```swift
 
@@ -23,7 +23,7 @@ let textField = UITextField(frame: .zero)
 ...
 textField.inputView = NumberPad(optionalKey: .dot)
                         .with(styleFrom: textField)
-                        .withStandartInputController()
+                        .withStandardInputController()
 
 ```
 

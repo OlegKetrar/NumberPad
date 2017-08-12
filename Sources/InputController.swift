@@ -21,7 +21,7 @@ public extension NumberPad {
 
 	/// Handles text input & deletion & returnKey logic like system.
 	@discardableResult
-	public func withStandartInputController() -> Self {
+	public func withStandardInputController() -> Self {
 		return onTextInput { (symbol) in
 			(UIResponder.first as? UIKeyInput)?.insertText(symbol)
 		}.onBackspace {
