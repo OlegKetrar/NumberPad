@@ -48,11 +48,11 @@ let pad = NumberPad(optionalKey: .plus)
 
 // define your own custom style
 struct MyCustomStyle: KeyboardStyle {
-	...
+    ...
 }
 
 let pad = NumberPad(optionalKey: .dot)
-			.with(style: MyCustomStyle())
+           .with(style: MyCustomStyle())
 ```
 
 ## Requirements
