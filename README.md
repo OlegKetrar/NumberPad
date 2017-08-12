@@ -57,8 +57,8 @@ let pad = NumberPad(optionalKey: .dot)
 
 ## Requirements
 
-- Swift 3.0+
-- xCode 8.0+
+- Swift 3.1+
+- xCode 8.3+
 - iOS 8.0+
 
 ## Installation
