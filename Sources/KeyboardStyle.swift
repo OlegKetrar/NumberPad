@@ -94,8 +94,8 @@ public extension KeyboardStyle {
 		guard let titleStr = titleFor(key: key, state: state) else { return nil }
 
 		return NSAttributedString(string: titleStr, attributes: [
-			.font            : fontFor(key: key, state: state),
-			.foregroundColor : titleColorFor(key: key, state: state),
+			NSFontAttributeName            : fontFor(key: key, state: state),
+			NSForegroundColorAttributeName : titleColorFor(key: key, state: state)
 		])
 	}
 
