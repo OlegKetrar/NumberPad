@@ -8,7 +8,9 @@
 
 import UIKit
 
-///
+/// Number keyboard with Return button.
+/// Can be configured with custom styles.
+/// Can have plus (+) or dot (.) as optional button.
 public final class NumberPad: UIInputView, Reusable {
 
     /// Uses default style.
@@ -52,7 +54,14 @@ public final class NumberPad: UIInputView, Reusable {
         defaultConfiguring()
     }
 
-    public init(optionalKey: Key.Optional) {
+    /// Creates keyboard without optional key.
+    public convenience init() {
+        self.init(optionalKey: nil)
+    }
+
+    /// Main initializer.
+    /// - parameter optionalKey: pass `nil` if you do not need optional button.
+    public init(optionalKey: Key.Optional?) {
         self.optionalKey = optionalKey
         super.init(frame: .zero, inputViewStyle: .keyboard)
         replaceWithNib()
@@ -108,8 +117,8 @@ public final class NumberPad: UIInputView, Reusable {
         case .digit(let digit): onTextInputClosure("\(digit)")
         case .optional(.plus):  onTextInputClosure("+")
         case .optional(.dot):   onTextInputClosure(".")
-        case .action:			onActionClosure()
-        case .backspace:		onBackspaceClosure()
+        case .action:           onActionClosure()
+        case .backspace:        onBackspaceClosure()
         }
 
         // play click
@@ -126,6 +135,7 @@ public final class NumberPad: UIInputView, Reusable {
     // MARK: Configure
 
     /// Apply custom visual style to keyboard.
+    /// - parameter style: custom style.
     @discardableResult
     public func with(style: KeyboardStyle) -> Self {
 

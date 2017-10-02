@@ -28,7 +28,6 @@ textField.inputView = NumberPad(optionalKey: .dot)
 ### Custom InputController
 
 ```swift
-
 let pad = NumberPad(optionalKey: .plus)
     .configure(with: textField)
     .onTextInput { (symbol) in

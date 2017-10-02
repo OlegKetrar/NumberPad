@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Default implementaion represents default style.
 public protocol KeyboardStyle {
 
     func fontFor(key: Key, state: Key.State) -> UIFont

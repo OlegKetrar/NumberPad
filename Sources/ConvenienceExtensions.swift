@@ -16,7 +16,7 @@ protocol Reusable: class {
 extension Reusable {
     static var reuseIdentifier: String { return String(describing: Self.self) }
     static var nibName: String         { return String(describing: Self.self) }
-    static var nib: UINib			   { return UINib(nibName: nibName, bundle: Bundle(for: self)) }
+    static var nib: UINib              { return UINib(nibName: nibName, bundle: Bundle(for: self)) }
 }
 
 extension Reusable where Self: UIView {

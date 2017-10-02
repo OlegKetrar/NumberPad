@@ -16,8 +16,8 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
 
         textField.returnKeyType = .done
-
-        textField.inputView = NumberPad(optionalKey: .plus)
+        
+        textField.inputView = NumberPad()
             .with(styleFrom: textField)
             .withStandardInputController()
 
