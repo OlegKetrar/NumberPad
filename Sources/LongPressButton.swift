@@ -59,11 +59,12 @@ final class LongPressButton: UIButton {
     @objc private func actionHold() {
         fireClosure()
         startTimestamp = Date().timeIntervalSinceReferenceDate
-        timer = Timer.scheduledTimer(timeInterval: timerInterval,
-                                     target: self,
-                                     selector: #selector(actionFire),
-                                     userInfo: nil,
-                                     repeats: true)
+        timer = Timer.scheduledTimer(
+            timeInterval: timerInterval,
+            target: self,
+            selector: #selector(actionFire),
+            userInfo: nil,
+            repeats: true)
     }
 
     @objc private func actionRelease() {

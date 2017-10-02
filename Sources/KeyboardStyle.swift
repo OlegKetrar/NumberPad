@@ -97,7 +97,7 @@ public extension KeyboardStyle {
         return NSAttributedString(string: titleStr, attributes: [
             NSFontAttributeName            : fontFor(key: key, state: state),
             NSForegroundColorAttributeName : titleColorFor(key: key, state: state)
-            ])
+        ])
     }
 
     var defaultDeleteKeyImage: UIImage? {
