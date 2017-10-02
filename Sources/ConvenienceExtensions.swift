@@ -56,24 +56,24 @@ extension UIView {
 
 extension UIImage {
 
-	/// Creates image with specified color.
-	/// - parameter color: specified color with alpha.
-	/// - parameter size: image size, default 1x1.
+    /// Creates image with specified color.
+    /// - parameter color: specified color with alpha.
+    /// - parameter size: image size, default 1x1.
     convenience init?(color: UIColor, size: CGSize = .init(width: 1, height: 1)) {
 
-		let image: UIImage? = {
-			defer { UIGraphicsEndImageContext() }
+        let image: UIImage? = {
+            defer { UIGraphicsEndImageContext() }
 
-			UIGraphicsBeginImageContextWithOptions(size, false, 0)
-			color.setFill()
-			UIRectFill(.init(origin: .zero, size: size))
+            UIGraphicsBeginImageContextWithOptions(size, false, 0)
+            color.setFill()
+            UIRectFill(.init(origin: .zero, size: size))
 
-			return UIGraphicsGetImageFromCurrentImageContext()
-		}()
+            return UIGraphicsGetImageFromCurrentImageContext()
+        }()
 
-		guard let createdImage = image,
-			let patternImage = createdImage.cgImage else { return nil }
+        guard let createdImage = image,
+            let patternImage = createdImage.cgImage else { return nil }
 
-		self.init(cgImage: patternImage, scale: createdImage.scale, orientation: createdImage.imageOrientation)
+        self.init(cgImage: patternImage, scale: createdImage.scale, orientation: createdImage.imageOrientation)
     }
 }

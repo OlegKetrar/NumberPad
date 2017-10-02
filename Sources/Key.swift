@@ -10,20 +10,20 @@ import Foundation
 /// 
 public enum Key {
 
-	///
-	public enum Optional {
-		case dot
-		case plus
-	}
+    ///
+    public enum Optional {
+        case dot
+        case plus
+    }
 
-	case digit(Int)
-	case backspace
-	case action
-	case optional(Optional)
+    case digit(Int)
+    case backspace
+    case action
+    case optional(Optional)
 
-	public enum State {
-		case normal
-		case selected
-		case highlighted
-	}
+    public enum State {
+        case normal
+        case selected
+        case highlighted
+    }
 }

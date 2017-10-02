@@ -17,14 +17,12 @@
 ### Standard InputController
 
 ```swift
-
 let textField = UITextField(frame: .zero)
 
 ...
 textField.inputView = NumberPad(optionalKey: .dot)
-                        .with(styleFrom: textField)
-                        .withStandardInputController()
-
+    .with(styleFrom: textField)
+    .withStandardInputController()
 ```
 
 ### Custom InputController
@@ -32,27 +30,26 @@ textField.inputView = NumberPad(optionalKey: .dot)
 ```swift
 
 let pad = NumberPad(optionalKey: .plus)
-            .configure(with: textField)
-            .onTextInput { (symbol) in
-                // proccess symbol input
-            }.onReturn {
-                // proccess action button
-            }.onBackspace {
-                // proccess backspace button
-            }
+    .configure(with: textField)
+    .onTextInput { (symbol) in
+        // proccess symbol input
+    }.onReturn {
+        // proccess action button
+    }.onBackspace {
+        // proccess backspace button
+    }
 ```
 
 ### Use custom style
 
 ```swift
-
 // define your own custom style
 struct MyCustomStyle: KeyboardStyle {
-    ...
+...
 }
 
 let pad = NumberPad(optionalKey: .dot)
-           .with(style: MyCustomStyle())
+    .with(style: MyCustomStyle())
 ```
 
 ## Requirements

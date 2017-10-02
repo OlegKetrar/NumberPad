@@ -12,73 +12,60 @@ import UIKit
 
 public extension NumberPad {
 
-	/// Uses system style with preferences from sepcified control.
-	/// - parameter textInput: instance of control which conforms to `UITextInputTraits`.
-	@discardableResult
-	public func with(styleFrom textInput: UITextInputTraits) -> Self {
-		return with(style: SystemStyle(textInput))
-	}
+    /// Uses system style with preferences from sepcified control.
+    /// - parameter textInput: instance of control which conforms to `UITextInputTraits`.
+    @discardableResult
+    public func with(styleFrom textInput: UITextInputTraits) -> Self {
+        return with(style: SystemStyle(textInput))
+    }
 
-	/// Handles text input & deletion & returnKey logic like system.
-	@discardableResult
-	public func withStandardInputController() -> Self {
-		return onTextInput { (symbol) in
-			(UIResponder.first as? UIKeyInput)?.insertText(symbol)
-		}.onBackspace {
-			(UIResponder.first as? UIKeyInput)?.deleteBackward()
-		}.onReturn {
+    /// Handles text input & deletion & returnKey logic like system.
+    @discardableResult
+    public func withStandardInputController() -> Self {
+        return onTextInput { (symbol) in
+            (UIResponder.first as? UIKeyInput)?.insertText(symbol)
+        }.onBackspace {
+            (UIResponder.first as? UIKeyInput)?.deleteBackward()
+        }.onReturn {
 
-			// find first responder
-			guard let responder = UIResponder.first else { return }
+            // find first responder
+            guard let responder = UIResponder.first else { return }
 
-			// ask known delegate
-			let shouldReturn: Bool = {
-				if let textField = responder as? UITextField {
-					return textField.delegate?.textFieldShouldReturn?(textField) ?? false
-				} else {
-					return true
-				}
-			}()
+            // ask known delegate
+            let shouldReturn: Bool = {
+                if let textField = responder as? UITextField {
+                    return textField.delegate?.textFieldShouldReturn?(textField) ?? false
+                } else {
+                    return true
+                }
+            }()
 
-			// dismiss keyboard
-			if shouldReturn {
-				responder.resignFirstResponder()
-			}
-		}
-	}
+            // dismiss keyboard
+            if shouldReturn {
+                responder.resignFirstResponder()
+            }
+        }
+    }
 }
 
 // MARK: Cocoa FirstResponder Magic
 
 private extension UIResponder {
-	
-	private struct SharedContainer {
-		static var firstResponder: UIResponder?
-	}
-	
-	/// This method will be called only on first responder.
-	/// Cocoa will ask each responders by chain.
-	@objc private func _number_pad_findFirstResponder() {
-		SharedContainer.firstResponder = self
-	}
 
-	/// Current first responder.
-	static var first: UIResponder? {
-		SharedContainer.firstResponder = nil
-		UIApplication.shared.sendAction(#selector(_number_pad_findFirstResponder), to: nil, from: nil, for: nil)
-		return SharedContainer.firstResponder
-	}
+    private struct SharedContainer {
+        static var firstResponder: UIResponder?
+    }
+
+    /// This method will be called only on first responder.
+    /// Cocoa will ask each responders by chain.
+    @objc private func _number_pad_findFirstResponder() {
+        SharedContainer.firstResponder = self
+    }
+
+    /// Current first responder.
+    static var first: UIResponder? {
+        SharedContainer.firstResponder = nil
+        UIApplication.shared.sendAction(#selector(_number_pad_findFirstResponder), to: nil, from: nil, for: nil)
+        return SharedContainer.firstResponder
+    }
 }
-
-// MARK:
-
-//private extension UITextField {
-//	var selectedRange: NSRange {
-//		guard let textRange = selectedTextRange, !textRange.isEmpty else { return NSRange() }
-//		
-//		let startPosition = offset(from: beginningOfDocument, to: textRange.start)
-//		let endPosition   = offset(from: beginningOfDocument, to: textRange.end)
-//		
-//		return NSRange(location: startPosition, length: endPosition - startPosition)
-//	}
-//}

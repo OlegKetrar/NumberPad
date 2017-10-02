@@ -15,12 +15,12 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		textField.returnKeyType = .done
+        textField.returnKeyType = .done
 
-		textField.inputView = NumberPad(optionalKey: .dot)
-			.with(styleFrom: textField)
-			.withStandardInputController()
+        textField.inputView = NumberPad(optionalKey: .plus)
+            .with(styleFrom: textField)
+            .withStandardInputController()
 
-		textField.becomeFirstResponder()
+        textField.becomeFirstResponder()
     }
 }
