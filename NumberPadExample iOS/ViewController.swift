@@ -15,8 +15,9 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textField.returnKeyType = .done
-        
+        // enabled autocorrection will increase keyboard height
+        textField.autocorrectionType = .no
+
         textField.inputView = NumberPad()
             .with(styleFrom: textField)
             .withStandardInputController()
