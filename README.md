@@ -6,15 +6,15 @@
 - [x] Return button
 - [x] Optional buttons (plus, dot)
 - [x] Long press support for delete key
-- [x] Custom styles
+- [x] [Custom styles](#use-custom-style)
+- [x] Improve InputControlller (ask delegate aboult shouldChangeCharactersInRange)
 - [ ] System slyles (light, dark) + vibrancy
 - [ ] iOS 11 PhonePad keyboard style
-- [ ] Improve InputControlller (ask delegate aboult shouldChangeCharactersInRange)
-- [ ] Appearance from UIInputTraits.keyboardAppearance
+- [ ] Appearance from `UIInputTraits.keyboardAppearance`
 
 ## Usage
 
-### Standard InputController
+### Standard `InputController`
 
 ```swift
 let textField = UITextField(frame: .zero)
@@ -25,11 +25,23 @@ textField.inputView = NumberPad(optionalKey: .dot)
     .withStandardInputController()
 ```
 
-### Custom InputController
+### Custom `InputController`
+You can provide Your own keyboard behaviour by implementing `InputConroller` protocol
+
+```swift
+// custom conroller for keyboard events
+class MyInputController: InputController {
+   ...
+}
+
+let pad = NumberPad()
+    .with(inputController: MyInputController())
+```
+
+Or use closures directly:
 
 ```swift
 let pad = NumberPad(optionalKey: .plus)
-    .configure(with: textField)
     .onTextInput { (symbol) in
         // proccess symbol input
     }.onReturn {
@@ -40,6 +52,7 @@ let pad = NumberPad(optionalKey: .plus)
 ```
 
 ### Use custom style
+Default implementation of  `KeyboardStyle` represents default style.
 
 ```swift
 // define your own custom style
@@ -53,8 +66,8 @@ let pad = NumberPad(optionalKey: .dot)
 
 ## Requirements
 
-- Swift 3.1+
-- xCode 8.3+
+- Swift 3.2+
+- xCode 9+
 - iOS 8.0+
 
 ## Installation
