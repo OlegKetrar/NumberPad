@@ -8,64 +8,33 @@
 
 import UIKit
 
-// TODO: add handling of delegates shouldChangeCharactersInRange
+public protocol InputController: class {
+    func keyPressed(_ key: String)
+    func backspacePressed()
+    func returnPressed()
+}
 
 public extension NumberPad {
 
-    /// Uses system style with preferences from sepcified control.
+    /// Uses system style with preferences from specified control.
     /// - parameter textInput: instance of control which conforms to `UITextInputTraits`.
     @discardableResult
     public func with(styleFrom textInput: UITextInputTraits) -> Self {
         return with(style: SystemStyle(textInput))
     }
 
+    /// Use custom input controller for handling keyboard events.
+    @discardableResult
+    public func with(inputController: InputController) -> Self {
+
+        return onTextInput { inputController.keyPressed($0) }
+            .onBackspace { inputController.backspacePressed() }
+            .onReturn { inputController.returnPressed() }
+    }
+
     /// Handles text input & deletion & returnKey logic like system.
     @discardableResult
     public func withStandardInputController() -> Self {
-        return onTextInput { (symbol) in
-            (UIResponder.first as? UIKeyInput)?.insertText(symbol)
-        }.onBackspace {
-            (UIResponder.first as? UIKeyInput)?.deleteBackward()
-        }.onReturn {
-
-            // find first responder
-            guard let responder = UIResponder.first else { return }
-
-            // ask known delegate
-            let shouldReturn: Bool = {
-                if let textField = responder as? UITextField {
-                    return textField.delegate?.textFieldShouldReturn?(textField) ?? false
-                } else {
-                    return true
-                }
-            }()
-
-            // dismiss keyboard
-            if shouldReturn {
-                responder.resignFirstResponder()
-            }
-        }
-    }
-}
-
-// MARK: Cocoa FirstResponder Magic
-
-private extension UIResponder {
-
-    private struct SharedContainer {
-        static var firstResponder: UIResponder?
-    }
-
-    /// This method will be called only on first responder.
-    /// Cocoa will ask each responders by chain.
-    @objc private func _number_pad_findFirstResponder() {
-        SharedContainer.firstResponder = self
-    }
-
-    /// Current first responder.
-    static var first: UIResponder? {
-        SharedContainer.firstResponder = nil
-        UIApplication.shared.sendAction(#selector(_number_pad_findFirstResponder), to: nil, from: nil, for: nil)
-        return SharedContainer.firstResponder
+        return with(inputController: StandardInputController())
     }
 }
