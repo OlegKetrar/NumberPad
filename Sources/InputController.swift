@@ -19,13 +19,13 @@ public extension NumberPad {
     /// Uses system style with preferences from specified control.
     /// - parameter textInput: instance of control which conforms to `UITextInputTraits`.
     @discardableResult
-    public func with(styleFrom textInput: UITextInputTraits) -> Self {
+    func with(styleFrom textInput: UITextInputTraits) -> Self {
         return with(style: SystemStyle(textInput))
     }
 
     /// Use custom input controller for handling keyboard events.
     @discardableResult
-    public func with(inputController: InputController) -> Self {
+    func with(inputController: InputController) -> Self {
 
         return onTextInput { inputController.keyPressed($0) }
             .onBackspace { inputController.backspacePressed() }
@@ -34,7 +34,7 @@ public extension NumberPad {
 
     /// Handles text input & deletion & returnKey logic like system.
     @discardableResult
-    public func withStandardInputController() -> Self {
+    func withStandardInputController() -> Self {
         return with(inputController: StandardInputController())
     }
 }

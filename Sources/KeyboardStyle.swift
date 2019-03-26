@@ -23,7 +23,7 @@ public protocol KeyboardStyle {
 
 public extension KeyboardStyle {
 
-    public func fontFor(key: Key, state: Key.State) -> UIFont {
+    func fontFor(key: Key, state: Key.State) -> UIFont {
         switch key {
         case .action:         return UIFont.boldSystemFont(ofSize: 25)
         case .optional(.dot): return UIFont.boldSystemFont(ofSize: 30)
@@ -33,14 +33,14 @@ public extension KeyboardStyle {
         }
     }
 
-    public func titleColorFor(key: Key, state: Key.State) -> UIColor {
+    func titleColorFor(key: Key, state: Key.State) -> UIColor {
         switch (key, state) {
         case (.action, .normal): return .white
         default:                 return .darkText
         }
     }
 
-    public func titleFor(key: Key, state: Key.State) -> String? {
+    func titleFor(key: Key, state: Key.State) -> String? {
         switch key {
         case let .digit(number): return "\(number)"
         case .optional(.plus):   return "+"
@@ -52,7 +52,7 @@ public extension KeyboardStyle {
         }
     }
 
-    public func imageFor(key: Key, state: Key.State) -> UIImage? {
+    func imageFor(key: Key, state: Key.State) -> UIImage? {
         switch (key, state) {
         case (.backspace, .normal): return defaultDeleteKeyImage
         case (.backspace, _):       return defaultDeleteKeyImage
@@ -62,7 +62,7 @@ public extension KeyboardStyle {
         }
     }
 
-    public func backgroundImageFor(key: Key, state: Key.State) -> UIImage? {
+    func backgroundImageFor(key: Key, state: Key.State) -> UIImage? {
         return UIImage(color:  {
             switch (key, state) {
 
@@ -83,11 +83,11 @@ public extension KeyboardStyle {
         }())
     }
 
-    public var separatorColor: UIColor {
+    var separatorColor: UIColor {
         return UIColor.groupTableViewBackground
     }
 
-    public var separatorThickness: CGFloat {
+    var separatorThickness: CGFloat {
         return 2
     }
 
@@ -95,8 +95,8 @@ public extension KeyboardStyle {
         guard let titleStr = titleFor(key: key, state: state) else { return nil }
 
         return NSAttributedString(string: titleStr, attributes: [
-            NSFontAttributeName            : fontFor(key: key, state: state),
-            NSForegroundColorAttributeName : titleColorFor(key: key, state: state)
+            .font            : fontFor(key: key, state: state),
+            .foregroundColor : titleColorFor(key: key, state: state)
         ])
     }
 
