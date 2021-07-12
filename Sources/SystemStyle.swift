@@ -5,7 +5,7 @@
 //  Created by Oleg Ketrar on 12.08.17.
 //
 
-import Foundation
+import UIKit
 
 // TODO: iOS 10 light & dark style
 // TODO: iOS 11 light & dark style
@@ -36,7 +36,8 @@ extension SystemStyle: KeyboardStyle {
              (.done, .normal),
              (.join, .normal),
              (.send, .normal),
-             (.go, .normal) : return .white
+             (.go, .normal) :
+            return .white
 
         default:
             return .darkText
@@ -62,7 +63,8 @@ extension SystemStyle: KeyboardStyle {
                  (.done, .normal),
                  (.join, .normal),
                  (.send, .normal),
-                 (.go, .normal): return .init(red: 0, green: 0.479, blue: 1, alpha: 1)
+                 (.go, .normal):
+                return .init(red: 0, green: 0.479, blue: 1, alpha: 1)
 
             case (.default, .normal):
                 return .init(red: 0.82, green: 0.837, blue: 0.863, alpha: 1)
@@ -84,15 +86,17 @@ private extension UIReturnKeyType {
         switch self {
         case .done: return "Done".localized(with: UIKitBundle)
         case .next: return "Next".localized(with: UIKitBundle)
-        case .go:   return "Go".localized(with: UIKitBundle)
+        case .go: return "Go".localized(with: UIKitBundle)
         case .join: return "Join".localized(with: UIKitBundle)
         case .send: return "Send".localized(with: UIKitBundle)
-        default:    return "Return".localized(with: UIKitBundle)
+        default:
+            return "Return".localized(with: UIKitBundle)
         }
     }
 }
 
 private extension String {
+
     func localized(with bundle: Bundle?) -> String {
         return bundle?.localizedString(forKey: self, value: "", table: nil) ?? self
     }

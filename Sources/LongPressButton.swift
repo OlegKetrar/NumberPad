@@ -13,7 +13,7 @@ final class LongPressButton: UIButton {
     private var timer: Timer?
     private var fireClosure: () -> Void = {}
 
-    private let holdDelay: TimeInterval     = 0.45
+    private let holdDelay: TimeInterval = 0.45
     private var timerInterval: TimeInterval = 0.1
     private var startTimestamp: TimeInterval?
 
@@ -32,20 +32,23 @@ final class LongPressButton: UIButton {
     /// Start hold event recognition after delay.
     private func recognizeHoldEvent() -> Bool {
         guard let startTimestamp = startTimestamp else { return false }
+
         let timestamp = Date().timeIntervalSinceReferenceDate
         return timestamp >= startTimestamp + holdDelay
     }
 
     // MARK: Subscribe
 
-    func addAction(forContiniusHoldWith interval: TimeInterval, action: @escaping () -> Void) {
+    func addAction(
+        forContiniusHoldWith interval: TimeInterval,
+        action: @escaping () -> Void) {
 
         // remove old timer
         invalidateTimer()
 
         // save
         timerInterval = interval
-        fireClosure   = action
+        fireClosure = action
 
         // subscribe
         addTarget(self, action: #selector(actionHold), for: .touchDown)
@@ -59,6 +62,7 @@ final class LongPressButton: UIButton {
     @objc private func actionHold() {
         fireClosure()
         startTimestamp = Date().timeIntervalSinceReferenceDate
+
         timer = Timer.scheduledTimer(
             timeInterval: timerInterval,
             target: self,
@@ -72,7 +76,8 @@ final class LongPressButton: UIButton {
     }
 
     @objc private func actionFire() {
-        guard recognizeHoldEvent() else { return }
-        fireClosure()
+        if recognizeHoldEvent() {
+            fireClosure()
+        }
     }
 }

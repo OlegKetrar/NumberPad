@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol InputController: class {
+public protocol InputController: AnyObject {
     func keyPressed(_ key: String)
     func backspacePressed()
     func returnPressed()

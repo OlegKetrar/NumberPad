@@ -23,8 +23,8 @@ public final class NumberPad: UIInputView, Reusable {
     }()
 
     private var onTextInputClosure: (String) -> Void = { _ in }
-    private var onBackspaceClosure: () -> Void       = {}
-    private var onActionClosure:    () -> Void       = {}
+    private var onBackspaceClosure: () -> Void = {}
+    private var onActionClosure: () -> Void = {}
 
     private let optionalKey: Key.Optional?
 
@@ -40,7 +40,7 @@ public final class NumberPad: UIInputView, Reusable {
 
     // MARK: Init
 
-    override public init(frame: CGRect, inputViewStyle: UIInputViewStyle) {
+    override public init(frame: CGRect, inputViewStyle: UIInputView.Style) {
         optionalKey = nil
         super.init(frame: frame, inputViewStyle: inputViewStyle)
         replaceWithNib()
@@ -72,10 +72,10 @@ public final class NumberPad: UIInputView, Reusable {
     private func defaultConfiguring() {
 
         // adjust actionButton title font size
-        actionButton.titleLabel?.numberOfLines             = 1
+        actionButton.titleLabel?.numberOfLines = 1
         actionButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        actionButton.titleLabel?.minimumScaleFactor        = 0.5
-        actionButton.titleLabel?.lineBreakMode             = .byClipping
+        actionButton.titleLabel?.minimumScaleFactor = 0.5
+        actionButton.titleLabel?.lineBreakMode = .byClipping
 
         // configure additional buttons
         if optionalKey == nil {
@@ -97,7 +97,7 @@ public final class NumberPad: UIInputView, Reusable {
     @IBAction private func digitButtonDidPressed(_ button: UIButton) {
 
         // validate button tag (indexes is same as elements)
-        guard let buttonDigit = (0..<10).index(of: button.tag - 1) else { return }
+        guard let buttonDigit = (0..<10).firstIndex(of: button.tag - 1) else { return }
         didPress(key: .digit(buttonDigit))
     }
 
@@ -115,10 +115,10 @@ public final class NumberPad: UIInputView, Reusable {
         // inform delegate
         switch key {
         case .digit(let digit): onTextInputClosure("\(digit)")
-        case .optional(.plus):  onTextInputClosure("+")
-        case .optional(.dot):   onTextInputClosure(".")
-        case .action:           onActionClosure()
-        case .backspace:        onBackspaceClosure()
+        case .optional(.plus): onTextInputClosure("+")
+        case .optional(.dot): onTextInputClosure(".")
+        case .action: onActionClosure()
+        case .backspace: onBackspaceClosure()
         }
 
         // play click

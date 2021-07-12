@@ -5,7 +5,7 @@
 //  Created by Oleg Ketrar on 18.10.17.
 //
 
-import Foundation
+import UIKit
 
 /// Standard input contoller.
 /// Handles UITextField & UITextView.
@@ -13,7 +13,7 @@ final class StandardInputController: InputController {
 
     func keyPressed(_ key: String) {
 
-        guard let textInput   = UIResponder.first as? UITextInput,
+        guard let textInput = UIResponder.first as? UITextInput,
             let selectedRange = textInput.selectedTextRange else { return }
 
         textInput.replaceText(at: selectedRange, with: key)
@@ -21,10 +21,12 @@ final class StandardInputController: InputController {
 
     func backspacePressed() {
 
-        guard let textInput   = UIResponder.first as? UITextInput,
+        guard
+            let textInput = UIResponder.first as? UITextInput,
             let selectedRange = textInput.selectedTextRange,
             let startPosition = textInput.position(from: selectedRange.start, offset: -1),
-            let rangeToDelete = textInput.textRange(from: startPosition, to: selectedRange.end) else { return }
+            let rangeToDelete = textInput.textRange(from: startPosition, to: selectedRange.end)
+        else { return }
 
         textInput.replaceText(at: rangeToDelete, with: "")
     }
@@ -65,12 +67,16 @@ private extension UITextInput {
         switch self {
 
         case let textField as UITextField:
-            return textField.delegate?
-                .textField?(textField, shouldChangeCharactersIn: range, replacementString: string) ?? true
+            return textField.delegate?.textField?(
+                textField,
+                shouldChangeCharactersIn: range,
+                replacementString: string) ?? true
 
         case let textView as UITextView:
-            return textView.delegate?
-                .textView?(textView, shouldChangeTextIn: range, replacementText: string) ?? true
+            return textView.delegate?.textView?(
+                textView,
+                shouldChangeTextIn: range,
+                replacementText: string) ?? true
 
         default:
             return true
@@ -95,7 +101,13 @@ private extension UIResponder {
     /// Current first responder.
     static var first: UIResponder? {
         SharedContainer.firstResponder = nil
-        UIApplication.shared.sendAction(#selector(_number_pad_findFirstResponder), to: nil, from: nil, for: nil)
+
+        UIApplication.shared.sendAction(
+            #selector(_number_pad_findFirstResponder),
+            to: nil,
+            from: nil,
+            for: nil)
+
         return SharedContainer.firstResponder
     }
 }

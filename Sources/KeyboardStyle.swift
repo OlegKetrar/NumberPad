@@ -25,8 +25,11 @@ public extension KeyboardStyle {
 
     func fontFor(key: Key, state: Key.State) -> UIFont {
         switch key {
-        case .action:         return UIFont.boldSystemFont(ofSize: 25)
-        case .optional(.dot): return UIFont.boldSystemFont(ofSize: 30)
+        case .action:
+            return UIFont.boldSystemFont(ofSize: 25)
+
+        case .optional(.dot):
+            return UIFont.boldSystemFont(ofSize: 30)
 
         default:
             return UIFont.systemFont(ofSize: 30)
@@ -35,17 +38,19 @@ public extension KeyboardStyle {
 
     func titleColorFor(key: Key, state: Key.State) -> UIColor {
         switch (key, state) {
-        case (.action, .normal): return .white
-        default:                 return .darkText
+        case (.action, .normal):
+            return .white
+        default:
+            return .darkText
         }
     }
 
     func titleFor(key: Key, state: Key.State) -> String? {
         switch key {
         case let .digit(number): return "\(number)"
-        case .optional(.plus):   return "+"
-        case .optional(.dot):    return "."
-        case .action:            return "Return"
+        case .optional(.plus): return "+"
+        case .optional(.dot): return "."
+        case .action: return "Return"
 
         default:
             return nil
@@ -55,7 +60,7 @@ public extension KeyboardStyle {
     func imageFor(key: Key, state: Key.State) -> UIImage? {
         switch (key, state) {
         case (.backspace, .normal): return defaultDeleteKeyImage
-        case (.backspace, _):       return defaultDeleteKeyImage
+        case (.backspace, _): return defaultDeleteKeyImage
 
         default:
             return nil
@@ -95,12 +100,15 @@ public extension KeyboardStyle {
         guard let titleStr = titleFor(key: key, state: state) else { return nil }
 
         return NSAttributedString(string: titleStr, attributes: [
-            .font            : fontFor(key: key, state: state),
+            .font : fontFor(key: key, state: state),
             .foregroundColor : titleColorFor(key: key, state: state)
         ])
     }
 
     var defaultDeleteKeyImage: UIImage? {
-        return UIImage(named: "deleteKey", in: .init(for: NumberPad.self), compatibleWith: nil)
+        return UIImage(
+            named: "deleteKey",
+            in: .init(for: NumberPad.self),
+            compatibleWith: nil)
     }
 }

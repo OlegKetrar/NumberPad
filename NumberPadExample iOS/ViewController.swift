@@ -25,13 +25,13 @@ final class ViewController: UIViewController {
         // enabled autocorrection will increase keyboard height
         systemTextField.autocorrectionType = .no
         numberTextField.autocorrectionType = .no
-        numberTextView.autocorrectionType  = .no
+        numberTextView.autocorrectionType = .no
 
         // remove insertion of extra whitespace
         if #available(iOS 11, *) {
             systemTextField.smartInsertDeleteType = .no
             numberTextField.smartInsertDeleteType = .no
-            numberTextView.smartInsertDeleteType  = .no
+            numberTextView.smartInsertDeleteType = .no
         }
 
         numberTextField.inputView = NumberPad()
@@ -44,27 +44,10 @@ final class ViewController: UIViewController {
 
         systemTextField.delegate = self
         numberTextField.delegate = self
-        numberTextView.delegate  = self
     }
 }
 
-extension ViewController: UITextFieldDelegate, UITextViewDelegate {
-
-    // MARK: UITextFieldDelegate
-
-    func textField(
-        _ textField: UITextField,
-        shouldChangeCharactersIn range: NSRange,
-        replacementString string: String) -> Bool {
-
-        guard textField === numberTextField else { return true }
-
-        let allowedChars = CharacterSet(charactersIn: "0123456789")
-        let wholeString  = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
-        let components   = wholeString.components(separatedBy: allowedChars.inverted)
-
-        return components.count == 1 && wholeString.count <= 5
-    }
+extension ViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
@@ -75,17 +58,5 @@ extension ViewController: UITextFieldDelegate, UITextViewDelegate {
         }
 
         return false
-    }
-
-    // MARK: UITextViewDelegate
-
-    func textView(
-        _ textView: UITextView,
-        shouldChangeTextIn range: NSRange,
-        replacementText text: String) -> Bool {
-
-        let wholeString = (textView.text as NSString).replacingCharacters(in: range, with: text)
-
-        return wholeString.count <= 5
     }
 }
